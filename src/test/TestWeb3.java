@@ -63,8 +63,8 @@ public class TestWeb3 {
 		//testWeb3();
 		//testWeb3Account();
 		//testNewAccount();
-		//testNewGeth();
-		//testGethAccount();
+		//testNewGmit();
+		//testGmitAccount();
 		//testAdmin();
 		//testWallets();
 		//loadWallets();
@@ -106,29 +106,29 @@ public class TestWeb3 {
 	}
 
 	public static void testNewAccount(){
-		Gmit geth = Gmit.build(new HttpService(ip));
+		Gmit gmit = Gmit.build(new HttpService(ip));
 		try {
-			NetPeerCount count = geth.netPeerCount().send();
+			NetPeerCount count = gmit.netPeerCount().send();
 			System.out.println(count.getQuantity());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void testNewGeth(){
-		Gmit geth = Gmit.build(new HttpService(ip));
+	public static void testNewGmit(){
+		Gmit gmit = Gmit.build(new HttpService(ip));
 		try {
-			MitBlockNumber block = geth.mitBlockNumber().send();
+			MitBlockNumber block = gmit.mitBlockNumber().send();
 			System.out.println(block.getBlockNumber());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void testGethAccount(){
-		Gmit geth = Gmit.build(new HttpService(ip));
+	public static void testGmitAccount(){
+		Gmit gmit = Gmit.build(new HttpService(ip));
 		try {
-			String method = geth.personalNewAccount("password").send().getResult();
+			String method = gmit.personalNewAccount("password").send().getResult();
 			System.out.println(method);
 		} catch (Exception e) {
 			e.printStackTrace();

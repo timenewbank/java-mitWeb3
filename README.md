@@ -52,9 +52,9 @@ web3j is a lightweight, highly modular, reactive, type safe Java library for wor
 ### test Gmit for get peerCount
 
 ```
-    Gmit geth = Gmit.build(new HttpService(ip));
+    Gmit gmit = Gmit.build(new HttpService(ip));
     try {
-      NetPeerCount count = geth.netPeerCount().send();
+      NetPeerCount count = gmit.netPeerCount().send();
       System.out.println(count.getQuantity());
     } catch (IOException e) {
       e.printStackTrace();
@@ -66,9 +66,9 @@ web3j is a lightweight, highly modular, reactive, type safe Java library for wor
 
 ```
 
-    Gmit geth = Gmit.build(new HttpService(ip));
+    Gmit gmit = Gmit.build(new HttpService(ip));
     try {
-      MitBlockNumber block = geth.mitBlockNumber().send();
+      MitBlockNumber block = gmit.mitBlockNumber().send();
       System.out.println(block.getBlockNumber());
     } catch (IOException e) {
       e.printStackTrace();
@@ -80,9 +80,9 @@ web3j is a lightweight, highly modular, reactive, type safe Java library for wor
 
 ```
 
-    Gmit geth = Gmit.build(new HttpService(ip));
+    Gmit gmit = Gmit.build(new HttpService(ip));
     try {
-      String method = geth.personalNewAccount("password").send().getResult();
+      String method = gmit.personalNewAccount("password").send().getResult();
       System.out.println(method);
     } catch (Exception e) {
       e.printStackTrace();
