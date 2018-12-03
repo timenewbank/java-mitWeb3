@@ -1,8 +1,17 @@
-web3j: Web3 Java TNB Ðapp API
+# web3j: Web3 Java TNB Dapp API
+web3j is a lightweight, highly modular, reactive, type safe Java library for working with Smart Contracts and integrating with clients (nodes) on the TNB network.
 
-Quickstart
+# Quickstart
 
-.. code-block:: java
+```
+  private static String ip = "url";
+  public static final Web3j web3 = Web3j.build(new HttpService(ip));
+  public static final Admin admin=Admin.build(new HttpService(ip));
+```
+
+### getVersion
+
+```
 
   public static void testWeb3(){
     Web3j web3 = Web3j.build(new HttpService(ip));  // defaults to http://localhost:8545/
@@ -16,7 +25,11 @@ Quickstart
     System.out.println(clientVersion);
   }
 
-.. code-block:: java
+```
+
+### getAccounts
+
+```
 
   public static void testWeb3Account(){
     List<String> accounts;
@@ -34,9 +47,11 @@ Quickstart
     }
   }
 
-.. code-block:: java
+```
 
-  public static void testNewAccount(){
+### test Gmit for get peerCount
+
+```
     Gmit geth = Gmit.build(new HttpService(ip));
     try {
       NetPeerCount count = geth.netPeerCount().send();
@@ -44,11 +59,13 @@ Quickstart
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
 
-.. code-block:: java
+```
 
-  public static void testNewGeth(){
+### test Gmit for get BlockNumber
+
+```
+
     Gmit geth = Gmit.build(new HttpService(ip));
     try {
       MitBlockNumber block = geth.mitBlockNumber().send();
@@ -56,39 +73,46 @@ Quickstart
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-  
-.. code-block:: java
 
-  public static void testGethAccount(){
+```
+
+### test Gmit personalNewAccount
+
+```
+
     Gmit geth = Gmit.build(new HttpService(ip));
     try {
-      String method = geth.personalNewAccount("1234").send().getResult();
+      String method = geth.personalNewAccount("password").send().getResult();
       System.out.println(method);
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-  
-.. code-block:: java
 
-  public static void testAdmin(){
+```
+
+### test Admin personalNewAccount
+
+```
+
     Admin admin=Admin.build(new HttpService(ip));
     try {
-      Error error = admin.personalNewAccount("1234").send().getError();
+      Error error = admin.personalNewAccount("password").send().getError();
       System.out.println(error.getMessage());
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-  
-.. code-block:: java
+
+```
+
+### test Admin personalNewAccount
+
+```
 
   public static void testWallets(){
     try {
       String filePath="E:\\mit_wallet"; 
-      String walletFile = WalletUtils.generateNewWalletFile("1234", new File(filePath), false);
-      Credentials credentials = WalletUtils.loadCredentials("1234", filePath+"/"+walletFile);
+      String walletFile = WalletUtils.generateNewWalletFile("password", new File(filePath), false);
+      Credentials credentials = WalletUtils.loadCredentials("password", filePath+"/"+walletFile);
       System.out.println(walletFile);
       System.out.println(credentials.getAddress());
       System.out.println(credentials.getEcKeyPair().getPublicKey());
@@ -98,21 +122,29 @@ Quickstart
       e.printStackTrace();
     }
   }
-  
-.. code-block:: java
+
+```
+
+### test web3 loadWallets
+
+```
 
   public static void loadWallets(){
     String path="E:\\mit_wallet\\UTC--2018-08-22T03-32-21.160000000Z--cbeb7b079ec50a479b59aa2ab18da2c9a6b85907.json";
     try {
-      Credentials credentials = WalletUtils.loadCredentials("1234", path);
+      Credentials credentials = WalletUtils.loadCredentials("password", path);
       MitGetBalance balance = web3.mitGetBalance(credentials.getAddress(),  DefaultBlockParameter.valueOf("latest")).send();
       System.out.println(Convert.fromWei(balance.getBalance().toString(),Convert.Unit.TNB));
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
-  
-.. code-block:: java
+
+```
+
+### test web3 sendTransaction
+
+```
 
   public static void sendTransaction(String value,String password){
     String inp="Hello mit";
@@ -123,7 +155,7 @@ Quickstart
       fromAddress = web3.mitAccounts().send().getAccounts().get(0);
       BigInteger balance = web3.mitGetBalance(fromAddress, DefaultBlockParameter.valueOf("latest")).send().getBalance();
       if(balance.compareTo(valueFromTnb.toBigInteger())>=0){
-        System.out.println(balance+"大于"+valueFromTnb.toBigInteger());
+        System.out.println(balance+" big than "+valueFromTnb.toBigInteger());
         //unlock the from account
         PersonalUnlockAccount unlock_result = admin.personalUnlockAccount(fromAddress,password).send();
         if(unlock_result.getResult()){
@@ -148,8 +180,12 @@ Quickstart
       e.printStackTrace();
     }
   }
-  
-.. code-block:: java
+
+```
+
+### test web3 getPrice
+
+```
 
   public static void getPrice(){
     try {
@@ -160,14 +196,22 @@ Quickstart
     }
   }
 
-.. code-block:: java
+```
+
+### test testWindowIpc
+
+```
 
   public static void testWindowIpc(){
     Web3j web3Win = Web3j.build(new WindowsIpcService("/path/to/namedpipefile"));
     Web3j web3Uinx = Web3j.build(new UnixIpcService("/path/to/socketfile"));
   }
-  
-.. code-block:: java
+
+```
+
+### test Contract
+
+```
 
   //get the contract
   public static void testContract(){
@@ -188,10 +232,12 @@ Quickstart
       e.printStackTrace();
     } 
   }
-  
-.. code-block:: java
 
-  public static void testFilter(){
+```
+
+### test subscribe block
+
+```
     Subscription subscribe = web3.blockObservable(false).subscribe(block->{
       System.out.println(block.getBlock().getNumber());
       Block handleBlock = block.getBlock();
@@ -200,25 +246,23 @@ Quickstart
         Object object = transactionResult.get().toString();
       }
     });
-  }
-  
+```
 
-.. code-block:: java
+### test subscribe transaction
 
-  /**
-   * get the transaction
-   */
-  public static void testTransaction(){
+```
     web3.transactionObservable().subscribe(transaction->{
       System.out.println(transaction.getBlockHash());
       String transactionhash = transaction.getHash();
       String transactionStr = transaction.toString();
-      System.out.println("transactionhash->"+transactionhash);   
+      System.out.println("transactionhash->"+transactionhash);
+      
     });
-  }
+```
 
+### test getBlock
 
-.. code-block:: java
+```
 
   /**
    * get block
@@ -247,5 +291,6 @@ Quickstart
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }  
-}
+  }
+
+```
