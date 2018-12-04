@@ -1,6 +1,30 @@
 # web3j: Web3 Java TNB Dapp API
 web3j is a lightweight, highly modular, reactive, type safe Java library for working with Smart Contracts and integrating with clients (nodes) on the TNB network.
 
+
+## Dependencies
+```
+need Java 8 
+bcprov-jdk15on-1.54.jar
+jackson-annotations-2.8.0.jar
+jackson-core-2.8.5.jar
+jackson-databind-2.8.5.jar
+Java-WebSocket-1.3.8.jar
+javapoet-1.7.0.jar
+jnr-constants-0.9.6.jar
+jnr-enxio-0.14.jar
+jnr-ffi-2.1.2.jar
+jnr-posix-3.0.33.jar
+jnr-unixsocket-0.15.jar
+jnr-x86asm-1.0.2.jar
+logging-interceptor-3.8.1.jar
+okhttp-3.8.1.jar
+okio-1.13.0.jar
+rxjava-1.2.4.jar
+slf4j-api-1.7.25.jar
+slf4j-nop-1.7.25.jar
+```
+
 # Quickstart
 
 ```
